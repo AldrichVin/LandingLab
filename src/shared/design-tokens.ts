@@ -1,15 +1,15 @@
 export const COLORS = {
-  sky: '#c4bde0',
-  skyLight: '#d8d0e8',
-  skyDark: '#9890b8',
-  cloudPink: '#e8a0b8',
-  cloudCream: '#f5e8d0',
-  cloudYellow: '#f0e0b0',
-  ink: '#2a2450',
-  inkLight: '#5c5480',
-  glass: 'rgba(255,255,255,0.65)',
-  glassBorder: 'rgba(255,255,255,0.3)',
-  cardBg: 'rgba(255,255,255,0.7)',
+  sky: '#b0bec5',
+  skyLight: '#cfd8dc',
+  skyDark: '#78909c',
+  cloudSlate: '#90a4ae',
+  cloudCream: '#d7ccc8',
+  cloudSteel: '#a0aab0',
+  ink: '#1a2332',
+  inkLight: '#4a5568',
+  glass: 'rgba(255,255,255,0.55)',
+  glassBorder: 'rgba(255,255,255,0.25)',
+  cardBg: 'rgba(255,255,255,0.6)',
 } as const;
 
 export const TYPOGRAPHY = {

@@ -26,7 +26,7 @@ function EaselIllustration() {
       {/* Little star/sparkle in the empty canvas */}
       <path
         d="M60 42 L62 38 L64 42 L68 44 L64 46 L62 50 L60 46 L56 44 Z"
-        fill={COLORS.cloudPink}
+        fill={COLORS.cloudSlate}
         fillOpacity="0.7"
       />
 

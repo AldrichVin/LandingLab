@@ -17,16 +17,16 @@ interface CloudConfig {
 const CLOUDS: readonly CloudConfig[] = [
   // Far layer — slow, translucent, blurred
   { color: COLORS.cloudCream, width: 320, top: '8%', startX: -100, duration: TIMING.cloudDriftSlow, opacity: 0.35, zIndex: 1, blur: 2, scale: 1 },
-  { color: COLORS.cloudPink, width: 280, top: '18%', startX: 800, duration: 38, opacity: 0.3, zIndex: 1, blur: 3, scale: 0.9 },
-  { color: COLORS.cloudYellow, width: 240, top: '65%', startX: -200, duration: 36, opacity: 0.25, zIndex: 1, blur: 2, scale: 0.8 },
+  { color: COLORS.cloudSlate, width: 280, top: '18%', startX: 800, duration: 38, opacity: 0.3, zIndex: 1, blur: 3, scale: 0.9 },
+  { color: COLORS.cloudSteel, width: 240, top: '65%', startX: -200, duration: 36, opacity: 0.25, zIndex: 1, blur: 2, scale: 0.8 },
 
   // Mid layer
-  { color: COLORS.cloudPink, width: 360, top: '12%', startX: 500, duration: 30, opacity: 0.5, zIndex: 5, blur: 1, scale: 1.1 },
+  { color: COLORS.cloudSlate, width: 360, top: '12%', startX: 500, duration: 30, opacity: 0.5, zIndex: 5, blur: 1, scale: 1.1 },
   { color: COLORS.cloudCream, width: 300, top: '32%', startX: -150, duration: 28, opacity: 0.45, zIndex: 5, blur: 0, scale: 1 },
-  { color: COLORS.cloudYellow, width: 220, top: '72%', startX: 600, duration: 34, opacity: 0.4, zIndex: 5, blur: 1, scale: 0.9 },
+  { color: COLORS.cloudSteel, width: 220, top: '72%', startX: 600, duration: 34, opacity: 0.4, zIndex: 5, blur: 1, scale: 0.9 },
 
   // Near layer — faster, bolder, in front
-  { color: COLORS.cloudPink, width: 400, top: '5%', startX: -300, duration: TIMING.cloudDriftFast, opacity: 0.6, zIndex: 30, blur: 0, scale: 1.2 },
+  { color: COLORS.cloudSlate, width: 400, top: '5%', startX: -300, duration: TIMING.cloudDriftFast, opacity: 0.6, zIndex: 30, blur: 0, scale: 1.2 },
   { color: COLORS.cloudCream, width: 350, top: '78%', startX: 700, duration: 22, opacity: 0.55, zIndex: 30, blur: 0, scale: 1.15 },
 ];
 

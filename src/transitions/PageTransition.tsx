@@ -6,7 +6,7 @@ interface PageTransitionProps {
   readonly color?: string;
 }
 
-export default function PageTransition({ isActive, color = '#c4bde0' }: PageTransitionProps) {
+export default function PageTransition({ isActive, color = '#b0bec5' }: PageTransitionProps) {
   return (
     <AnimatePresence>
       {isActive && (
