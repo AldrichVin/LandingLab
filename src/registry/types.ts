@@ -1,3 +1,5 @@
+import type { FC } from 'react';
+
 export interface PageEntry {
   readonly slug: string;
   readonly title: string;
@@ -6,6 +8,6 @@ export interface PageEntry {
   readonly tags: readonly string[];
   readonly featured: boolean;
   readonly color: string;
-  readonly framerUrl: string;
+  readonly component: FC;
   readonly thumbnail?: string;
 }
