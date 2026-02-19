@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { TIMING } from '@/shared/design-tokens';
+import { EASINGS, ZINDEX } from '@/shared/design-tokens';
 
 interface PageTransitionProps {
   readonly isActive: boolean;
@@ -11,15 +11,18 @@ export default function PageTransition({ isActive, color = '#b0bec5' }: PageTran
     <AnimatePresence>
       {isActive && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: TIMING.transitionOverlay / 1000 }}
+          initial={{ y: '100%' }}
+          animate={{ y: '0%' }}
+          exit={{ y: '-100%' }}
+          transition={{
+            duration: 0.5,
+            ease: EASINGS.sharpInOut as unknown as number[],
+          }}
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 60,
-            background: `radial-gradient(ellipse at center, ${color}, ${color}ee)`,
+            zIndex: ZINDEX.transitionOverlay,
+            background: color,
             pointerEvents: 'none',
           }}
         />

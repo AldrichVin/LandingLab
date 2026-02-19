@@ -1,64 +1,36 @@
-import { useState, useCallback } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import BackgroundScene from './scene/BackgroundScene';
 import Home from './home/Home';
 import PageViewer from './viewer/PageViewer';
 import PageTransition from './transitions/PageTransition';
-import { getPageBySlug } from './registry/page-registry';
-import type { PageEntry } from './registry/types';
-
-type AppState =
-  | { view: 'home' }
-  | { view: 'entering'; page: PageEntry }
-  | { view: 'viewing'; page: PageEntry }
-  | { view: 'exiting' };
+import CustomCursor from './cursor/CustomCursor';
+import { useGalleryStore } from './shared/store';
 
 export default function App() {
-  const [state, setState] = useState<AppState>({ view: 'home' });
+  const view = useGalleryStore((s) => s.view);
+  const activePage = useGalleryStore((s) => s.activePage);
 
-  const handleSelectPage = useCallback((slug: string) => {
-    const page = getPageBySlug(slug);
-    if (!page) return;
-
-    setState({ view: 'entering', page });
-
-    setTimeout(() => {
-      setState({ view: 'viewing', page });
-    }, 450);
-  }, []);
-
-  const handleBack = useCallback(() => {
-    setState({ view: 'exiting' });
-
-    setTimeout(() => {
-      setState({ view: 'home' });
-    }, 450);
-  }, []);
-
-  const isTransitioning = state.view === 'entering' || state.view === 'exiting';
-  const transitionColor = state.view === 'entering' ? state.page.color : undefined;
+  const isTransitioning = view === 'entering' || view === 'exiting';
+  const transitionColor = view === 'entering' ? activePage?.color : undefined;
 
   return (
-    <>
+    <LayoutGroup>
       <BackgroundScene />
+      <CustomCursor />
 
       <PageTransition isActive={isTransitioning} color={transitionColor} />
 
       <AnimatePresence mode="wait">
-        {(state.view === 'home' || state.view === 'entering') && (
-          <Home key="home" onSelectPage={handleSelectPage} />
+        {(view === 'home' || view === 'entering') && (
+          <Home key="home" />
         )}
       </AnimatePresence>
 
       <AnimatePresence mode="wait">
-        {state.view === 'viewing' && (
-          <PageViewer
-            key={state.page.slug}
-            page={state.page}
-            onBack={handleBack}
-          />
+        {view === 'viewing' && activePage && (
+          <PageViewer key={activePage.slug} page={activePage} />
         )}
       </AnimatePresence>
-    </>
+    </LayoutGroup>
   );
 }
