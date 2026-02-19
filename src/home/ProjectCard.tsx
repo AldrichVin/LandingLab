@@ -1,28 +1,46 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useTransform } from 'framer-motion';
 import type { PageEntry } from '@/registry/types';
-import { COLORS, TYPOGRAPHY } from '@/shared/design-tokens';
+import { useCardTilt } from '@/cursor/useCardTilt';
+import { COLORS, TYPOGRAPHY, SPRINGS } from '@/shared/design-tokens';
 
 interface ProjectCardProps {
   readonly entry: PageEntry;
   readonly index: number;
+  readonly isCenter?: boolean;
   readonly onClick: (slug: string) => void;
 }
 
-const cardSpring = {
-  type: 'spring' as const,
-  stiffness: 300,
-  damping: 20,
-};
+export default function ProjectCard({
+  entry,
+  index,
+  isCenter = false,
+  onClick,
+}: ProjectCardProps) {
+  const cardRef = useRef<HTMLElement>(null);
+  const {
+    rotateX,
+    rotateY,
+    glareX,
+    glareY,
+    handleMouseMove,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useCardTilt(cardRef);
 
-export default function ProjectCard({ entry, index, onClick }: ProjectCardProps) {
   return (
     <motion.article
+      ref={cardRef}
+      layoutId={`card-${entry.slug}`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.08, duration: 0.5, ...cardSpring }}
-      whileHover={{ y: -8, scale: 1.02, transition: cardSpring }}
-      whileTap={{ scale: 0.98 }}
+      transition={{ delay: index * 0.08, duration: 0.5, type: 'spring', ...SPRINGS.snappy }}
+      whileHover={isCenter ? { y: -8, scale: 1.02 } : undefined}
+      whileTap={isCenter ? { scale: 0.98 } : undefined}
       onClick={() => onClick(entry.slug)}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => handleMouseEnter(entry.title)}
+      onMouseLeave={handleMouseLeave}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
@@ -41,8 +59,31 @@ export default function ProjectCard({ entry, index, onClick }: ProjectCardProps)
         cursor: 'pointer',
         overflow: 'hidden',
         position: 'relative',
+        height: '100%',
+        rotateX: isCenter ? rotateX : 0,
+        rotateY: isCenter ? rotateY : 0,
+        transformPerspective: 800,
       }}
     >
+      {/* Glare overlay */}
+      {isCenter && (
+        <motion.div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '1rem',
+            background: useTransform(
+              [glareX, glareY],
+              ([gx, gy]) =>
+                `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,0.15), transparent 60%)`,
+            ),
+            mixBlendMode: 'overlay',
+            pointerEvents: 'none',
+            zIndex: 2,
+          }}
+        />
+      )}
+
       {/* Accent strip */}
       <div
         style={{

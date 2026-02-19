@@ -1,21 +1,27 @@
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import CloudLayer from './CloudLayer';
 import HeroSection from './HeroSection';
-import ProjectGrid from './ProjectGrid';
-import { COLORS, TYPOGRAPHY } from '@/shared/design-tokens';
-
-interface HomeProps {
-  readonly onSelectPage: (slug: string) => void;
-}
+import CardCarousel from './CardCarousel';
+import ScrollReveal from '@/shared/components/ScrollReveal';
+import { useMagneticButton } from '@/cursor/useMagneticButton';
+import { COLORS, TYPOGRAPHY, ZINDEX } from '@/shared/design-tokens';
 
 function Navbar() {
+  const navRef = useRef<HTMLElement>(null);
+  const { x, y } = useMagneticButton(navRef);
+
   return (
-    <nav
+    <motion.nav
+      ref={navRef}
       style={{
         position: 'fixed',
         top: '1rem',
         left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 50,
+        translateX: '-50%',
+        x,
+        y,
+        zIndex: ZINDEX.navbar,
         display: 'flex',
         alignItems: 'center',
         gap: '1rem',
@@ -38,11 +44,11 @@ function Navbar() {
       >
         Landing Lab
       </span>
-    </nav>
+    </motion.nav>
   );
 }
 
-export default function Home({ onSelectPage }: HomeProps) {
+export default function Home() {
   return (
     <>
       <CloudLayer />
@@ -50,13 +56,15 @@ export default function Home({ onSelectPage }: HomeProps) {
       <main
         style={{
           position: 'relative',
-          zIndex: 10,
+          zIndex: ZINDEX.content,
           minHeight: '100vh',
           overflowY: 'auto',
         }}
       >
         <HeroSection />
-        <ProjectGrid onSelectPage={onSelectPage} />
+        <ScrollReveal>
+          <CardCarousel />
+        </ScrollReveal>
       </main>
     </>
   );
