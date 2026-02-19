@@ -62,6 +62,13 @@ body {
   border-width: 0;
 }
 
+/* Custom cursor — hide native cursor on desktop */
+@media (pointer: fine) {
+  body.custom-cursor * {
+    cursor: none !important;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
