@@ -128,9 +128,15 @@ export default function ProjectCard({
           fontWeight: 600,
           color: COLORS.ink,
           marginBottom: '0.25rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.4rem',
         }}
       >
         {entry.title}
+        {entry.externalUrl && (
+          <span style={{ fontSize: '0.75rem', opacity: 0.4 }}>&#8599;</span>
+        )}
       </h3>
 
       <p

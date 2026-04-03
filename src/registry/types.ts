@@ -10,4 +10,6 @@ export interface PageEntry {
   readonly color: string;
   readonly component: FC;
   readonly thumbnail?: string;
+  readonly externalUrl?: string;
+  readonly github?: string;
 }

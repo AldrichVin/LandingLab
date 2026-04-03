@@ -32,6 +32,11 @@ export const useGalleryStore = create<GalleryStore>((set) => ({
     const page = getPageBySlug(slug);
     if (!page) return;
 
+    if (page.externalUrl) {
+      window.open(page.externalUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
     set({ view: 'entering', activePage: page });
 
     setTimeout(() => {
