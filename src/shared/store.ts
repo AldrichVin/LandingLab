@@ -32,8 +32,9 @@ export const useGalleryStore = create<GalleryStore>((set) => ({
     const page = getPageBySlug(slug);
     if (!page) return;
 
-    if (page.externalUrl) {
-      window.open(page.externalUrl, '_blank', 'noopener,noreferrer');
+    const url = page.externalUrl ?? page.github;
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
       return;
     }
 

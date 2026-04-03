@@ -134,7 +134,7 @@ export default function ProjectCard({
         }}
       >
         {entry.title}
-        {entry.externalUrl && (
+        {(entry.externalUrl ?? entry.github) && (
           <span style={{ fontSize: '0.75rem', opacity: 0.4 }}>&#8599;</span>
         )}
       </h3>
